@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Syne, Cormorant_Garamond } from "next-ext/font/google"; // Wait, it's next/font/google
+import { Inter, Syne, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
