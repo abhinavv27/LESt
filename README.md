@@ -9,9 +9,11 @@
 
 ---
 
-## 📽️ Live Demonstration
+## 📽️ Live Verification Lifecycle
 
 ````carousel
+![0. Infrastructure - Waiting for neural input protocol.](public/screenshots/empty.png)
+<!-- slide -->
 ![1. Neural Ingestion - High-fidelity file slotting for baseline and contrast sources.](public/screenshots/ingestion.png)
 <!-- slide -->
 ![2. Neural Handshake - Cortex Supervisor synchronizing the agent swarm kernel.](public/screenshots/handshake.png)
