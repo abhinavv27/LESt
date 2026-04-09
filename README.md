@@ -11,17 +11,13 @@
 
 ## 📽️ Live Verification Lifecycle
 
-````carousel
-![0. Infrastructure - Waiting for neural input protocol.](public/screenshots/empty.png)
-<!-- slide -->
-![1. Neural Ingestion - High-fidelity file slotting for baseline and contrast sources.](public/screenshots/ingestion.png)
-<!-- slide -->
-![2. Neural Handshake - Cortex Supervisor synchronizing the agent swarm kernel.](public/screenshots/handshake.png)
-<!-- slide -->
-![3. Active Swarm Monitoring - Real-time kernel logs from specialist agents in the SwarmHUD.](public/screenshots/swarm_active.png)
-<!-- slide -->
-![4. Strategic Synthesis - Final Audit Report with Critical Risk Index and automated advisories.](public/screenshots/final_report.png)
-````
+| Infrastructure Initialization | Neural Ingestion | Neural Handshake |
+| :---: | :---: | :---: |
+| ![0. Infrastructure](public/screenshots/empty.png) | ![1. Ingestion](public/screenshots/ingestion.png) | ![2. Handshake](public/screenshots/handshake.png) |
+
+| Active Swarm Monitoring | Strategic Synthesis |
+| :---: | :---: |
+| ![3. Active Swarm](public/screenshots/swarm_active.png) | ![4. Final Report](public/screenshots/final_report.png) |
 
 ---
 
@@ -76,8 +72,8 @@ graph TD
 ### Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/user/lex-contrast.git
-   cd lex-contrast
+   git clone https://github.com/abhinavv27/LESt.git
+   cd web
    ```
 2. Install dependencies:
    ```bash
