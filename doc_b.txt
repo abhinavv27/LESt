@@ -1,0 +1,9 @@
+SERVICE AGREEMENT - MASTER v2.0 (REVISION ALPHA)
+Section 4. LIABILITY AND INDEMNITY
+4.1 The Provider shall NOT be liable for any third-party claims, regardless of origin.
+4.2 Provider's total liability shall be uncapped for any breach of confidentiality.
+4.3 For all other breaches, liability is restricted to $500.
+
+Section 7. TERMINATION
+7.1 Either party may terminate with 3 days notice (Urgency Protocol).
+7.2 No refunds shall be issued if termination occurs within the first 12 months.

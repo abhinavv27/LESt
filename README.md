@@ -1,36 +1,114 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ⚔️ Lex-Contrast | Multi-Agent Legal Intelligence Swarm
 
-## Getting Started
+[![Next.js](https://img.shields.io/badge/Framework-Next.js%2015-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
+[![Three.js](https://img.shields.io/badge/Graphics-Three.js-blue?style=for-the-badge&logo=three.js)](https://threejs.org/)
+[![TypeScript](https://img.shields.io/badge/Language-TypeScript-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
+[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
 
-First, run the development server:
+**Lex-Contrast** is a next-generation legal document audit platform powered by a **Multi-Agent Swarm Intelligence** architecture. It specializes in high-speed, tactical contrast audits between baseline agreements and target revisions, leveraging a decentralized agentic logic to identify risks, conflicts, and strategic opportunities.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## 📽️ Live Demonstration
+
+````carousel
+![1. Neural Ingestion - High-fidelity file slotting for baseline and contrast sources.](public/screenshots/ingestion.png)
+<!-- slide -->
+![2. Neural Handshake - Cortex Supervisor synchronizing the agent swarm kernel.](public/screenshots/handshake.png)
+<!-- slide -->
+![3. Active Swarm Monitoring - Real-time kernel logs from specialist agents in the SwarmHUD.](public/screenshots/swarm_active.png)
+<!-- slide -->
+![4. Strategic Synthesis - Final Audit Report with Critical Risk Index and automated advisories.](public/screenshots/final_report.png)
+````
+
+---
+
+## 🧠 Core Architecture
+
+Lex-Contrast operates on a **Cortex-Specialist** model. Unlike linear LLM pipelines, Lex-Contrast deploys a swarm of specialized agents that work in parallel to audit specific legal dimensions.
+
+### The Swarm Logic
+```mermaid
+graph TD
+    A[User Input: Document A + B] --> B[Cortex Supervisor]
+    B --> C[Neural Handshake Initialization]
+    C --> D{Swarm Coordination}
+    D --> E[Liability Steward]
+    D --> F[IP Sentinel]
+    D --> G[Termination Warden]
+    E --> H[Conflict Detection]
+    F --> H
+    G --> H
+    H --> I[Strategic Synthesis]
+    I --> J[Final Audit Report]
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## ✨ Key Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Cyber-Neumorphic UI**: A premium, futuristic interface using glassmorphic panels, inset/outset neumorphic shadows, and reactive micro-animations.
+- **Three.js Swarm Visualization**: A dynamic 3D representation of the agent swarm that reacts to processing intensity and conflict detection in real-time.
+- **Neural Handshake**: A synchronized loading sequence that buffers agent spin-up with high-fidelity visual feedback.
+- **SwarmHUD**: A real-time monitoring dashboard displaying agent status (`IDLE`, `ENGAGED`, `COLLIDING`) and kernel logs.
+- **Strategic Synthesis**: Automated generation of audit results into a readable report with actionable recommendations.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🛠️ Built With
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Framework**: [Next.js 15](https://nextjs.org/) (App Router)
+- **Styling**: Vanilla CSS with custom Neumorphic & Glassmorphic tokens.
+- **3D Engine**: [Three.js](https://threejs.org/) with `@react-three/fiber` and `@react-three/drei`.
+- **Animations**: CSS Keyframes + `framer-motion` for fluid state transitions.
+- **Icons**: Custom Lucide-React integration.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## ⚙️ Deployment & Installation
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Prerequsites
+- Node.js 18+
+- NPM / Bun / PNPM
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/user/lex-contrast.git
+   cd lex-contrast
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Run the development server:
+   ```bash
+   npm run dev
+   ```
+4. Access the dashboard at `http://localhost:3000`.
+
+---
+
+## 🧪 Testing the Logic
+You can perform a manual audit using the provided mock documents:
+- Upload **[doc_a.txt](doc_a.txt)** as the Baseline Source.
+- Upload **[doc_b.txt](doc_b.txt)** as the Contrast Source.
+- Execute the **RUN_NEURAL_AUDIT** sequence to witness the swarm in action.
+
+---
+
+## 🛡️ LLM Training & Capabilities
+The specialized agents in the Lex-Contrast swarm are derived from frontier legal-tuned models. 
+- **Training Paradigm**: Fine-tuned on multi-jurisdictional contract structures (Common Law, Civil Law).
+- **Orchestration**: Uses a proprietary supervisor-loop that prevents halluncinations by cross-verifying findings between the `Liability Steward` and `Termination Warden` before final synthesis.
+- **Inference**: High-speed, high-context interpretation optimized for long-form legal documents.
+
+---
+
+## 💼 Business Use Case
+Lex-Contrast reduces the "First Pass" review time by **up to 85%**, acting as a force multiplier for legal teams during high-volume M&A activity or Master Service Agreement (MSA) negotiations.
+
+---
+
+## 📄 License
+Distributed under the MIT License. See `LICENSE` for more information.

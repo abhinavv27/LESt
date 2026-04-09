@@ -1,0 +1,9 @@
+SERVICE AGREEMENT - MASTER v1.2
+Section 4. LIABILITY AND INDEMNITY
+4.1 The Provider shall indemnify the Client against all third-party claims.
+4.2 Provider's total liability under this agreement shall not exceed $10,000.
+4.3 In no event shall Provider be liable for indirect or consequential damages.
+
+Section 7. TERMINATION
+7.1 Either party may terminate with 30 days written notice.
+7.2 Upon termination, the Client shall pay for all services rendered.

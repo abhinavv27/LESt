@@ -17,6 +17,13 @@
 /.next/
 /out/
 
+# build diagnostic artifacts
+build_final.txt
+build_final_utf8.txt
+build_log.txt
+build_output.txt
+build_output_utf8.txt
+
 # production
 /build
 

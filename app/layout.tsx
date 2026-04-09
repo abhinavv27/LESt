@@ -1,14 +1,12 @@
 import type { Metadata } from "next";
-import { Inter, Syne, Cormorant_Garamond } from "next/font/google";
+import { Inter, Syne, JetBrains_Mono, Orbitron, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const syne = Syne({ subsets: ["latin"], variable: "--font-syne" });
-const cormorant = Cormorant_Garamond({ 
-  subsets: ["latin"], 
-  weight: ["400", "500", "600"],
-  variable: "--font-cormorant" 
-});
+const jetbrains = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains-mono" });
+const orbitron = Orbitron({ subsets: ["latin"], variable: "--font-orbitron" });
+const jakarta = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-jakarta" });
 
 export const metadata: Metadata = {
   title: "Lex-Contrast | Multi-Agent Legal Intelligence",
@@ -22,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${syne.variable} ${cormorant.variable} antialiased`}>
+      <body className={`${inter.variable} ${syne.variable} ${orbitron.variable} ${jakarta.variable} ${jetbrains.variable} antialiased`}>
         <div id="scroll-progress" />
         <div className="noise-overlay" />
         {children}

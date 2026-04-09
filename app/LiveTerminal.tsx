@@ -1,151 +1,118 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useMemo } from "react";
 import { AgentEvent } from "./useAgentStream";
-import { AlertTriangle, CheckCircle, Cpu, Layers, Zap } from "lucide-react";
-
-const LEVEL_COLORS: Record<string, string> = {
-  CRITICAL: "text-red-400",
-  HIGH:     "text-orange-400",
-  MEDIUM:   "text-yellow-400",
-};
-
-function EventRow({ event }: { event: AgentEvent }) {
-  if (event.kind === "stage") {
-    return (
-      <div className="flex items-center gap-3 py-2 border-t border-lex-gold/10 mt-2">
-        <Layers size={14} className="text-lex-gold flex-shrink-0" />
-        <span className="text-lex-gold font-display tracking-widest text-xs uppercase">
-          Stage {event.stage} · {event.label}
-        </span>
-      </div>
-    );
-  }
-
-  if (event.kind === "collision") {
-    const lvlClass = LEVEL_COLORS[event.level ?? "MEDIUM"];
-    return (
-      <div className="flex items-start gap-3 py-1">
-        <AlertTriangle size={12} className={`${lvlClass} flex-shrink-0 mt-0.5`} />
-        <span className="font-mono text-xs leading-relaxed">
-          <span className={`${lvlClass} font-bold`}>[Δ {event.delta_score?.toFixed(2)}]</span>
-          {" "}
-          <span className="text-white/70">{event.lens}</span>
-          {" · "}
-          <span className="text-lex-cyan">{event.topic}</span>
-          {" · "}
-          <span className={lvlClass}>{event.level}</span>
-        </span>
-      </div>
-    );
-  }
-
-  if (event.kind === "report") {
-    return (
-      <div className="flex items-center gap-3 py-3 border-t border-lex-gold/20 mt-2">
-        <CheckCircle size={14} className="text-green-400 flex-shrink-0" />
-        <span className="font-mono text-xs text-green-300">
-          {event.message}
-        </span>
-      </div>
-    );
-  }
-
-  return (
-    <div className="flex items-start gap-3 py-0.5">
-      <Cpu size={10} className="text-white/30 flex-shrink-0 mt-1" />
-      <span className="font-mono text-xs text-white/50 leading-relaxed">
-        {event.message ?? JSON.stringify(event)}
-      </span>
-    </div>
-  );
-}
+import { Terminal, Activity, Zap, ShieldAlert, AlertTriangle, Cpu } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface LiveTerminalProps {
   events: AgentEvent[];
-  isStreaming: boolean;
-  isComplete: boolean;
-  collisions: AgentEvent[];
 }
 
-export default function LiveTerminal({
-  events,
-  isStreaming,
-  isComplete,
-  collisions,
-}: LiveTerminalProps) {
-  const scrollRef = useRef<HTMLDivElement>(null);
+export default function LiveTerminal({ events }: LiveTerminalProps) {
+  const terminalRef = useRef<HTMLDivElement>(null!);
 
-  // Auto-scroll as events arrive
+  // Performance optimization: only show last 100 events to prevent DOM bloat
+  const displayEvents = useMemo(() => events.slice(-100), [events]);
+
   useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    if (terminalRef.current) {
+      terminalRef.current.scrollTo({
+        top: terminalRef.current.scrollHeight,
+        behavior: "smooth"
+      });
     }
-  }, [events]);
-
-  const critical = collisions.filter((c) => c.level === "CRITICAL").length;
+  }, [displayEvents]);
 
   return (
-    <div className="glass-card rounded-2xl overflow-hidden border-lex-gold/20 flex flex-col h-[500px]">
-      {/* Terminal title bar */}
-      <div className="flex items-center justify-between px-5 py-3 border-b border-white/5 bg-white/[0.02]">
-        <div className="flex items-center gap-2">
-          <div className="w-3 h-3 rounded-full bg-red-500/70" />
-          <div className="w-3 h-3 rounded-full bg-yellow-500/70" />
-          <div className="w-3 h-3 rounded-full bg-green-500/70" />
+    <div className="w-full h-full font-mono text-[11px] leading-relaxed flex flex-col bg-black/60 cyber-panel p-0 overflow-hidden low-lag-blur">
+      {/* Header HUD - High Density */}
+      <div className="px-5 py-4 border-b border-[var(--cyber-cyan)]/20 bg-black/40 flex items-center justify-between shrink-0 relative overflow-hidden">
+        <div className="scanning-line opacity-5" />
+        <div className="flex items-center gap-4 relative z-10">
+           <div className="p-1.5 rounded-sm bg-[var(--cyber-cyan)]/10 border border-[var(--cyber-cyan)]/20">
+             <Cpu className="w-4 h-4 text-[var(--cyber-cyan)] animate-pulse" />
+           </div>
+           <div className="flex flex-col">
+             <h3 className="hud-label tracking-[0.4em] mb-0.5">KERNEL_SYNC_ACTIVE</h3>
+             <span className="text-[8px] text-[var(--cyber-cyan)]/40 uppercase font-black tracking-widest">v4.2.0_STABLE_BUILD</span>
+           </div>
         </div>
-        <span className="font-mono text-xs text-white/30 tracking-widest uppercase">
-          lex-contrast · agent stream
-        </span>
-        <div className="flex items-center gap-2">
-          {isStreaming && (
-            <span className="flex items-center gap-1.5 text-lex-cyan text-xs font-mono">
-              <span className="w-1.5 h-1.5 rounded-full bg-lex-cyan animate-pulse" />
-              LIVE
-            </span>
-          )}
-          {isComplete && (
-            <span className="text-green-400 text-xs font-mono">COMPLETE</span>
-          )}
+        <div className="flex items-center gap-6 text-[9px] text-[var(--cyber-cyan)]/60 uppercase tracking-widest font-black relative z-10 transition-all">
+           <div className="flex flex-col items-end">
+             <span className="text-white/20 text-[7px] mb-0.5">OPS_CTR</span>
+             <div className="flex items-center gap-2 px-2 py-0.5 bg-black/40 border border-[var(--cyber-cyan)]/20 shadow-[0_0_10px_rgba(0,240,255,0.05)]">
+               <Activity className="w-3 h-3 text-[var(--cyber-cyan)]" />
+               <span className="text-white tabular-nums">{events.length.toString().padStart(4, '0')}</span>
+             </div>
+           </div>
+           <div className="flex flex-col items-end">
+             <span className="text-white/20 text-[7px] mb-0.5">LINK_LAT</span>
+             <div className="flex items-center gap-2 px-2 py-0.5 bg-black/40 border border-[var(--cyber-warning)]/20">
+               <Zap className="w-3 h-3 text-[var(--cyber-warning)]" />
+               <span className="text-white animate-flicker">0.02MS</span>
+             </div>
+           </div>
         </div>
       </div>
 
-      {/* Streaming event log */}
-      <div
-        ref={scrollRef}
-        className="flex-1 overflow-y-auto px-5 py-4 space-y-0.5 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-lex-gold/20"
+      <div 
+        ref={terminalRef}
+        className="flex-1 overflow-y-auto p-6 custom-scrollbar space-y-2 relative bg-[#040406]/80"
       >
-        {events.length === 0 ? (
-          <p className="text-white/20 font-mono text-xs mt-4">
-            ▶ Press &quot;Run Analysis&quot; to start the live demo…
-          </p>
-        ) : (
-          events.map((ev, i) => <EventRow key={i} event={ev} />)
-        )}
-        {isStreaming && (
-          <div className="flex items-center gap-2 py-1">
-            <span className="font-mono text-xs text-lex-gold animate-pulse">▋</span>
-          </div>
-        )}
-      </div>
+        <div className="absolute inset-0 pointer-events-none opacity-5 bg-[radial-gradient(circle_at_center,var(--cyber-cyan)_0%,transparent_70%)]" />
+        <AnimatePresence initial={false}>
+          {displayEvents.map((e, i) => (
+            <motion.div 
+              key={i}
+              initial={{ opacity: 0, x: -10, filter: "blur(4px)" }}
+              animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className={`flex gap-4 group py-1 items-start relative ${
+                e.kind === 'error' ? 'text-[var(--cyber-error)]' : 
+                e.kind === 'collision' ? 'text-[var(--cyber-warning)]' : 
+                e.kind === 'lens_start' ? 'text-[var(--cyber-success)] bg-[var(--cyber-success)]/5 px-2 py-2 border-l border-[var(--cyber-success)]/40 mb-3 mt-3 shadow-[inset_10px_0_20px_-10px_rgba(5,255,161,0.1)]' : 
+                'text-white/40'
+              }`}
+            >
+              <span className="opacity-40 shrink-0 tabular-nums select-none mt-1 w-[75px] text-[8px] font-black border-r border-white/5 pr-3">
+                {new Date(e.ts).toLocaleTimeString([], { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit', fractionalSecondDigits: 2 })}
+              </span>
+              
+              <div className="flex flex-col flex-1 gap-1">
+                <span className={`shrink-0 font-black opacity-100 text-[8px] uppercase tracking-[0.2em] flex items-center gap-2 ${
+                   e.kind === 'collision' ? 'text-[var(--cyber-cyan)]' : 
+                   e.kind === 'error' ? 'text-[var(--cyber-error)]' : 
+                   e.kind === 'lens_start' ? 'text-[var(--cyber-success)]' : 
+                   'text-white/20'
+                 }`}>
+                  <span className="w-1.5 h-1.5 rounded-full bg-current shadow-[0_0_8px_currentColor]" />
+                  {e.kind === 'collision' ? "NEURAL_COLLISION_DETECTED" : 
+                   e.kind === 'error' ? "SYSTEM_KRNL_EXCP" : 
+                   e.kind === 'lens_start' ? "CONTEXT_PIVOT_INIT" : 
+                   "PACKET_STREAM_RX"}
+                </span>
 
-      {/* Summary bar */}
-      {isComplete && (
-        <div className="px-5 py-3 border-t border-white/5 bg-white/[0.02] flex items-center gap-6">
-          <div className="flex items-center gap-2">
-            <Zap size={12} className="text-lex-gold" />
-            <span className="font-mono text-xs text-white/60">
-              <span className="text-white">{collisions.length}</span> deltas
-            </span>
-          </div>
-          <div className="flex items-center gap-2">
-            <AlertTriangle size={12} className="text-red-400" />
-            <span className="font-mono text-xs text-white/60">
-              <span className="text-red-400">{critical}</span> critical
-            </span>
-          </div>
+                <span className={`flex-1 break-words transition-all duration-200 text-[10px] ${e.kind === 'collision' ? 'text-white/90 font-bold tracking-tight' : 'font-mono'}`}>
+                   {e.message || (e.kind === 'lens_start' ? `REASONING_ENGINE_TARGET :: ${e.lens}` : "")}
+                </span>
+              </div>
+            </motion.div>
+          ))}
+        </AnimatePresence>
+        
+        {/* Active Cursor Indicator */}
+        <div className="flex items-center gap-4 pt-6 border-t border-white/5 mt-6 opacity-80">
+           <div className="w-1.5 h-3 bg-[var(--cyber-cyan)] shadow-[0_0_15px_var(--cyber-cyan)] animate-pulse" />
+           <div className="flex flex-col">
+             <span className="text-[10px] text-[var(--cyber-cyan)] font-black uppercase tracking-[0.5em] animate-flicker">Awaiting_Neural_Load_0x2AF...</span>
+             <div className="flex gap-1 mt-1 opacity-20">
+                {[...Array(20)].map((_, i) => <div key={i} className="w-1 h-1 bg-white" />)}
+             </div>
+           </div>
         </div>
-      )}
+      </div>
     </div>
   );
 }
+
