@@ -1,11 +1,10 @@
 # ⚔️ Lex-Contrast | Multi-Agent Legal Intelligence Swarm
 
-[![Next.js](https://img.shields.io/badge/Framework-Next.js%2015-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
-[![Three.js](https://img.shields.io/badge/Graphics-Three.js-blue?style=for-the-badge&logo=three.js)](https://threejs.org/)
-[![TypeScript](https://img.shields.io/badge/Language-TypeScript-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
-[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
+**Lex-Contrast** is a futuristic legal intelligence platform that uses a **"Swarm" of AI Agents** to instantly audit and compare complex contracts. 
 
-**Lex-Contrast** is a next-generation legal document audit platform powered by a **Multi-Agent Swarm Intelligence** architecture. It specializes in high-speed, tactical contrast audits between baseline agreements and target revisions, leveraging a decentralized agentic logic to identify risks, conflicts, and strategic opportunities.
+Instead of one single AI, it deploys a team of specialized agents—like a **Liability Steward**, **IP Sentinel**, and **Termination Warden**—who "handshake" and collaborate to find hidden conflicts, risky clauses, and inconsistencies between two documents. 
+
+**In short:** You upload two files, watch the AI agents swarm together in real-time to analyze them, and get a high-fidelity report showing exactly where you're at risk and how to fix it.
 
 ---
 
